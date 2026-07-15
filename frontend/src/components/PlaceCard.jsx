@@ -1,3 +1,5 @@
+import { FaSearch } from "react-icons/fa";
+import { FaMapMarkerAlt } from "react-icons/fa"
 
 
 
@@ -6,36 +8,45 @@ export default function PlaceCard({ place }) {
     return (
         <>
 
-            <div className="border-2 border-gray-200 rounded-2xl border-3">
-
+            <div className="border-2 border-gray-200 rounded-2xl">
 
                 <img
-                    src="https://picsum.photos/400/250"
+                    src={place.image_url}
                     alt={place.title}
-                    className=" object-cover rounded-t-xl"
+                    className="object-cover rounded-t-xl"
                 />
 
-                <h3>{place.title}</h3>
+                <div className="p-5 space-y-4">
+                    <h3 className="text-xl font-bold">
 
-                <p className="info">
-                    {place.city},{place.province}
-                </p>
-                <div>
-                    <p>
+                        {place.title}
+
+                    </h3>
+
+                    <p className="flex items-center gap-2 text-gray-600 font-semibold">
+
+                        <FaMapMarkerAlt />
+
+                        {place.city}, {place.province}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2">
+
                         {place.tags.map(tag => (
-                            <span key={tag} className="tag">
+                            <span key={tag} className="bg-gray-300 px-3 py-1 rounded-full text-sm">
                                 {tag}
                             </span>
                         ))}
+
+                    </div>
+                    <p className="info">
+                        {place.description}
+                    </p>
+
+                    <p className="flex items-center gap-2 text-gray-700">
+                        <strong>Tipo:</strong> {place.type}
                     </p>
                 </div>
-                <p className="info">
-                    {place.description}
-                </p>
-
-                <p className="info">
-                    Tipo: {place.type}
-                </p>
 
             </div>
 

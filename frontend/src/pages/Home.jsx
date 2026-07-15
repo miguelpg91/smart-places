@@ -5,6 +5,8 @@ import searchPlaces from "../services/api.js"
 import PlaceCard from "../components/PlaceCard.jsx";
 import Map from "../components/Map.jsx";
 
+import { FaBolt } from "react-icons/fa"
+
 
 export default function Home() {
 
@@ -47,12 +49,13 @@ export default function Home() {
                     />
 
                     <button
-                        className="bg-green-500 rounded-2xl px-6 cursor-pointer">Buscar con la IA</button>
+                        className="bg-[#69b14e] rounded-2xl px-6 cursor-pointer">Buscar con la IA</button>
                 </form>
             </div>
 
             {summary && (
-                <div className="p-8 mt-8 bg-gree rounded-xl font-medium text-xl bg-[#7a7a7a]">
+                <div className="p-8 mt-8 bg-gree rounded-xl font-medium text-xl bg-[#69b14e]">
+
                     {summary}
                 </div>
             )}

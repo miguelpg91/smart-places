@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import "./App.css"
 
 import Home from './pages/Home.jsx'
 import Create from "./pages/Create.jsx";
@@ -10,7 +9,7 @@ function App() {
 
 
   return (
-    <div className="mx-100">
+    <div className="max-w-6xl mx-auto px-6">
       <Navbar />
 
       <Routes>
