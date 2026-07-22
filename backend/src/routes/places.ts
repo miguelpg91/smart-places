@@ -1,26 +1,51 @@
 import express from 'express'
-
+import { Request, Response, NextFunction } from "express"
 import pool from '../db/connection.js'
 import { searchPlaces } from '../controllers/placesSearchController.js'
 
 const router = express.Router()
 
+interface Place {
+    title: string
+    description: string
+    province: string
+    city: string
+    type: string
+    pricePerNight?: number
+    quiet?: boolean
+    hasWater?: boolean
+    nearLake?: boolean
+    latitude?: number
+    longitude?: number
+    tags?: string[]
 
-router.get('/', async (req, res, next) => {
-    try {
-        const result = await pool.query(
-            `SELECT * FROM places `                 ///no hace falta RETURNING porque ya viene implicito en SLECT
-        )
-        res.json(result.rows)
+}
 
-    } catch (error) {
-        next(error)
-    }
-})
+router.get(
+    '/',
+    async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> => {
+        try {
+            const result = await pool.query(
+                `SELECT * FROM places `                 ///no hace falta RETURNING porque ya viene implicito en SLECT
+            )
+            res.json(result.rows)
+
+        } catch (error) {
+            next(error)
+        }
+    })
 
 //$1, $2, ...Son placeholders (parámetros) de PostgreSQL.
 
-router.post('/', async (req, res, next) => {
+router.post('/', async (
+    req: Request<{}, {}, Place>,        ///?????
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
     const {
         title,
         description,
@@ -80,7 +105,11 @@ router.post('/', async (req, res, next) => {
 })
 
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', async (
+    req: Request<{}, {}, Place>,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
     const {
         title,
         description,
@@ -148,7 +177,11 @@ router.put('/:id', async (req, res, next) => {
     }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
     try {
 
         const result = await pool.query(
@@ -156,6 +189,14 @@ router.delete('/:id', async (req, res, next) => {
              WHERE id=$1
             RETURNING *`,
             [req.params.id])
+
+        if (!result.rows[0]) {
+            res.status(404).json({
+                error: 'Place doesn´t exist'
+            })
+
+            return
+        }
 
         res.json(result.rows[0])
 

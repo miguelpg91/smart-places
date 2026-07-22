@@ -1,20 +1,50 @@
+import { Request, Response, NextFunction } from "express"
 import pool from "../db/connection.js"
 import aiService from "../services/aiService.js"
 
 import summaryPrompt from "../services/summaryPrompt.js"
 
-export async function searchPlaces(req, res, next) {
+type SearchFilters = {
+    province?: string
+    city?: string
+    type?: string
+
+    hasWater?: boolean
+    hasToilet?: boolean
+    hasShower?: boolean
+    quiet?: boolean
+
+    nearBeach?: boolean
+    nearLake?: boolean
+    nearRiver?: boolean
+    nearMountain?: boolean
+    forest?: boolean
+
+    tags?: string[]
+
+    priceMax?: number
+}
+
+type SearchRequestDTO = {
+    query: string
+}
+
+
+export async function searchPlaces(
+    req: Request,
+    res: Response,
+    next: NextFunction): Promise<void> {
 
     try {
 
-        const { query } = req.body
+        const { query } = req.body as SearchRequestDTO
 
-        const filters = await aiService(query)      ///Envia el texto a la IA
+        const filters: SearchFilters = await aiService(query)      ///Envia el texto a la IA
 
         console.log(filters);
 
-        let conditions = []                         ///Guardará las condiciones SQL que entran en juego en la consulta
-        let values = []                             ///Guardará el valor de esas condiciones
+        let conditions: string[] = []                         ///Guardará las condiciones SQL que entran en juego en la consulta
+        let values: (string | number | boolean)[] = []                             ///Guardará el valor de esas condiciones
 
         let index = 1                               ///Si aparece la primera condición, usará $1
 
