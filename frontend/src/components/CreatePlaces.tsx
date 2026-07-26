@@ -1,11 +1,25 @@
 import { useState } from "react"
 
-import createPlace from "../services/api.js"
-import TagsSelector from "./TagsSelector.jsx"
+import { createPlace } from "../services/api.js"
+import TagsSelector from "./TagsSelector.js"
+
+
+type Place = {
+    title: string
+    description: string
+    province: string
+    city: string
+    type: string
+    pricePerNight: number,
+    quiet: boolean,
+    hasWater: boolean,
+    nearLake: boolean,
+    tags: string[]
+}
 
 export default function createPlaces() {
 
-    const [form, setForm] = useState({
+    const [form, setForm] = useState<Place>({
         title: "",
         description: "",
         province: "",
@@ -19,25 +33,37 @@ export default function createPlaces() {
     })
 
 
-    const handleChange = async (e) => {
+    const handleChange = async (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) => {
 
-        const { name, value, type, checked } = e.target
-        /* 
-                setForm({
-                    ...form,
-                    [e.target.name]: e.target.value
-                })
+        const { name, value, } = e.target
 
-        */
 
         ///En el campo llamado name, guarda un valor: Si es un checkbox → guarda checked (true o false); sino guarda value
+
+        if (e.target instanceof HTMLInputElement && e.target.type === "checkbox") {
+            setForm({
+                ...form,
+                [name]: e.target.checked            ///cambia la propiedad cuyo nombre está en name por el valor de checked 
+            })
+
+            return
+        }
+
         setForm({
-            [name]: type === "checkbox" ? checked : value
+            ...form,
+            [name]: name === "pricePerNight"
+                ? Number(value)                     ///convierte en numero
+                : value
         })
+
     }
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (
+        e: React.FormEvent<HTMLFormElement>
+    ) => {
 
         e.preventDefault()
 

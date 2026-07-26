@@ -3,7 +3,29 @@ import "leaflet/dist/leaflet.css";
 
 ///LEAFLET el script que permite inreactuar con un mapa (titlelayer) ???? 
 
-export default function Map({ places }) {
+type Place = {
+    id: number
+    title: string
+    description: string
+    province: string
+    city: string
+    type: string
+    image_url?: string
+    pricePerNight: number
+    quiet: boolean
+    hasWater: boolean
+    nearLake: boolean
+    latitude: number
+    longitude: number
+    tags: string[]
+}
+
+type Props = {
+    places: Place[]
+}
+
+
+export default function Map({ places }: Props) {
     return (
         <div className="mapContainer">
             <MapContainer

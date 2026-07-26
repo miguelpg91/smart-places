@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express"
+import type { Request, Response, NextFunction } from "express"
 import pool from "../db/connection.js"
 import aiService from "../services/aiService.js"
 
@@ -155,7 +155,8 @@ export async function searchPlaces(
         ///SI NO HAY FILTROS
 
         if (conditions.length === 0) {
-            return res.json([])
+            res.json([])
+            return
         }
 
         ///sql → la consulta completa construida.

@@ -4,7 +4,26 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
-export default async function summaryPrompt(places) {
+//el primer prompt recoge un string que viene del frontend, y el segundo(ESTE) recoje un array de objetos que son los resultados
+
+type Place = {
+    id: number
+    title: string
+    description: string
+    province: string
+    city: string
+    type: string
+    pricePerNight?: number
+    quiet?: boolean
+    hasWater?: boolean
+    nearLake?: boolean
+    latitude?: number
+    longitude?: number
+    tags?: string[]
+}
+
+
+export default async function summaryPrompt(places: Place[]): Promise<string> {
 
     try {
 
@@ -34,8 +53,6 @@ Si hay varios resultados similares, resúmelos en conjunto.
         })
 
         return response.output_text    ///Convierte la respuesta de la IA de texto a objeto 
-
-        return filters
 
 
 

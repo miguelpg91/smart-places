@@ -5,8 +5,19 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
+type Filters = {
+    province?: string
+    city?: string
+    type?: string
+    quiet?: boolean
+    hasWater?: boolean
+    nearLake?: boolean
+    tags?: string[]
+    priceMax?: number
+}
 
-export default async function aiService(query) {
+
+export default async function aiService(query: string): Promise<Filters> {
 
     try {
         const prompt = `
@@ -137,7 +148,7 @@ Usuario:
             input: prompt
         })
 
-        const filters = JSON.parse(response.output_text)    ///Convierte la respuesta de la IA de texto a objeto 
+        const filters: Filters = JSON.parse(response.output_text)    ///Convierte la respuesta de la IA de texto a objeto 
 
         return filters          //// Devuelve ese objeto al controller
 
