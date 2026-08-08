@@ -1,7 +1,7 @@
 import express from 'express'
-import { Request, Response, NextFunction } from "express"
-import pool from '../db/connection.ts'
-import { searchPlaces } from '../controllers/placesSearchController.ts'
+import type { Request, Response, NextFunction } from "express"
+import pool from '../db/connection.js'
+import { searchPlaces } from '../controllers/placesSearchController.js'
 
 const router = express.Router()
 
