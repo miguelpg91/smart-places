@@ -69,6 +69,10 @@ export default function Home() {
 
     }
 
+    if (error) {
+        return <p>Error: {error}</p>
+    }
+
 
     return (
         <div>

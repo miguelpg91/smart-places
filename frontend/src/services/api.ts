@@ -1,3 +1,5 @@
+const API_URL = import.meta.env.VITE_API_URL
+
 type Place = {
     id: number
     title: string
@@ -20,24 +22,10 @@ type SearchResponse = {
     summary: string
 }
 
-type CreatePlace = {
-    title: string
-    description: string
-    province: string
-    city: string
-    type: string
-    pricePerNight: number
-    quiet: boolean
-    hasWater: boolean
-    nearLake: boolean
-    tags: string[]
-}
-
-
 
 
 export async function searchPlaces(query: string): Promise<SearchResponse> {
-    const res = await fetch("http://localhost:3000/places/search", {
+    const res = await fetch(`${API_URL}/places/search`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -55,6 +43,25 @@ export async function searchPlaces(query: string): Promise<SearchResponse> {
 
 
 
-export async function createPlace(place: CreatePlace): Promise<void> {
-    // petición POST para crear el lugar
+export const createPlace = async (formData: FormData) => {
+
+    const response = await fetch(`${API_URL}/places`, {
+        method: "POST",
+
+        // No necesitamos Content-Type porque el navegador ve que estás enviando un FormData. 
+        body: formData
+    })
+
+    return response.json()
 }
+
+
+/*
+
+El navegador al ver que es FORMDATA (contenedor para string y archivos)
+
+automáticamente prepara: Content-Type: multipart/form-data; boundary=ABC123
+
+BOUNDARY:  es simplemente un separador que utiliza el navegador para distinguir las diferentes partes:
+
+*/

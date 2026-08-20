@@ -51,19 +51,19 @@ export async function searchPlaces(
         // JS: camelCase (filters.hasWater) → PostgreSQL: snake_case (has_water)
 
         if (filters.province) {
-            conditions.push(`province = $${index}`)     //province = $1
+            conditions.push(`LOWER(province) = LOWER($${index})`)     //province = $1
             values.push(filters.province)
             index++                                     ///prepara el número para la SIGUIENTE condición
         }
 
         if (filters.city) {
-            conditions.push(`city = $${index}`)
+            conditions.push(`LOWER(city) = LOWER($${index})`)
             values.push(filters.city)
             index++
         }
 
         if (filters.type) {
-            conditions.push(`type = $${index}`)          ///Añade esa condición SQL: "type = $1"
+            conditions.push(`LOWER(type) = LOWER($${index})`)          ///Añade esa condición SQL: "type = $1"
             values.push(filters.type)                   //// Añade el valor: "Camping"
             index++
         }
@@ -159,6 +159,7 @@ export async function searchPlaces(
             return
         }
 
+        console.log(filters);
         ///sql → la consulta completa construida.
 
         ///AND → deben cumplirse todas las condiciones.

@@ -1,7 +1,10 @@
 import express from 'express'
 import type { Request, Response, NextFunction } from "express"
-import pool from '../db/connection.js'
+import pool from '../db/connection.js'          //objeto que nos permite comunicarnos con PostgreSQL
 import { searchPlaces } from '../controllers/placesSearchController.js'
+
+import upload from '../middlewares/upload.js'
+import cloudinary from '../services/cloudinary.js'
 
 const router = express.Router()
 
@@ -32,7 +35,7 @@ router.get(
             const result = await pool.query(
                 `SELECT * FROM places `                 ///no hace falta RETURNING porque ya viene implicito en SLECT
             )
-            res.json(result.rows)
+            res.json(result.rows)                   ///significa que esperamos una respuesta de varios elementos
 
         } catch (error) {
             next(error)
@@ -41,29 +44,67 @@ router.get(
 
 //$1, $2, ...Son placeholders (parámetros) de PostgreSQL.
 
-router.post('/', async (
-    req: Request<{}, {}, Place>,        ///?????
-    res: Response,
-    next: NextFunction
-): Promise<void> => {
-    const {
-        title,
-        description,
-        province,
-        city,
-        type,
-        pricePerNight,
-        quiet,
-        hasWater,
-        nearLake,
-        latitude,
-        longitude,
-        tags
-    } = req.body
+router.post('/',
+    upload.single("image"),                 ///Multer recoge la foto y la deja disponible como: req.file(como req.body pero de archivos)
+    async (
+        req: Request<{}, {}, Place>,        ///?????
+        res: Response,
+        next: NextFunction
+    ): Promise<void> => {
+        const {
+            title,
+            description,
+            province,
+            city,
+            type,
+            pricePerNight,
+            quiet,
+            hasWater,
+            nearLake,
+            latitude,
+            longitude,
+            tags
+        } = req.body
 
-    try {
-        const result = await pool.query(
-            `INSERT INTO places(
+        const parsedTags = tags ? JSON.parse(tags) : []
+
+        let image_url = null
+
+
+        // 2. Comprobamos si el usuario ha enviado una imagen
+        if (req.file) {
+
+            // 3. Enviamos la imagen de Multer a Cloudinary
+            const result = await new Promise<any>((resolve, reject) => {
+
+                const stream = cloudinary.uploader.upload_stream(
+                    {
+                        folder: "smart-places"
+                    },
+
+                    (error, result) => {
+
+                        if (error) {
+                            reject(error)
+                        } else {
+                            resolve(result)
+                        }
+
+                    }
+                )
+
+                stream.end(req.file.buffer)
+            })
+
+
+            // 4. Cloudinary nos devuelve la URL
+            image_url = result.secure_url
+        }
+
+
+        try {
+            const result = await pool.query(
+                `INSERT INTO places(
             title,
             description,
             province,
@@ -75,34 +116,36 @@ router.post('/', async (
             near_lake,
             latitude,
             longitude,
-            tags
+            tags,
+            image_url
             )
             VALUES(
-                $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12
+                $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13
             )
             RETURNING *`,
-            [
-                title,
-                description,
-                province,
-                city,
-                type,
-                pricePerNight,
-                quiet,
-                hasWater,
-                nearLake,
-                latitude,
-                longitude,
-                tags
-            ]
-        )
+                [
+                    title,
+                    description,
+                    province,
+                    city,
+                    type,
+                    pricePerNight,
+                    quiet,
+                    hasWater,
+                    nearLake,
+                    latitude,
+                    longitude,
+                    parsedTags,
+                    image_url
+                ]
+            )
 
-        res.status(201).json(result.rows[0])
+            res.status(201).json(result.rows[0])
 
-    } catch (error) {
-        next(error)
-    }
-})
+        } catch (error) {
+            next(error)
+        }
+    })
 
 
 router.put('/:id', async (
