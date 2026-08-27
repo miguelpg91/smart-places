@@ -80,4 +80,4 @@ export default function Map({ places }: Props) {
 ///<Marker position={[40.4168, -3.7038]} />   Madrid
 
 
-///PopUp => marcadores clickables
+///PopUp => ventana con información que aparece al pulsar el marcador
