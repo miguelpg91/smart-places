@@ -1,8 +1,28 @@
 
 
-export default function TagsSelector({ form, setForm }) {
+type Place = {
+    title: string
+    description: string
+    province: string
+    city: string
+    type: string
+    pricePerNight: number
+    quiet: boolean
+    hasWater: boolean
+    nearLake: boolean
+    tags: string[]
+}
 
-    const handleTags = (e) => {
+
+type Props = {
+    form: Place
+    setForm: React.Dispatch<React.SetStateAction<Place>>
+}
+
+
+export default function TagsSelector({ form, setForm }: Props) {
+
+    const handleTags = (e: React.ChangeEvent<HTMLInputElement>) => {
 
         if (e.target.checked) {     ///Si el checkbox está marcado...
             setForm({

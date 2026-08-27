@@ -1,15 +1,15 @@
-import { useState } from "react";
+
 import { Route, Routes } from "react-router-dom";
 
-import Home from './pages/Home.jsx'
-import Create from "./pages/Create.jsx";
-import Navbar from "./components/Navbar.jsx"
+import Home from './pages/Home.js'
+import Create from "./pages/Create.js";
+import Navbar from "./components/Navbar.js"
 
 function App() {
 
 
   return (
-    <div className="max-w-6xl mx-auto px-6">
+    <div className="min-h-screen max-w-6xl mx-auto px-6 pb-16">
       <Navbar />
 
       <Routes>

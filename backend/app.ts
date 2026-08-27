@@ -1,18 +1,33 @@
-
 import express from 'express'
 
-import cors from 'cors'
+import rateLimit from 'express-rate-limit'
 
-const app = express()
+import cors from 'cors'
 
 import placesRoutes from './src/routes/places.js'
 
 
-app.use(cors())     ///???
+const app = express()
+
+
+app.use(cors({
+    origin: "https://smart-places-frontend.onrender.com"
+}))
+
+const aiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 20,
+    message: 'Demasiadas peticiones. Inténtalo más tarde.'
+})
+
 
 app.use(express.json())
 
+app.use('/places/search', aiLimiter)
+
 app.use('/places', placesRoutes)
+
+
 
 
 

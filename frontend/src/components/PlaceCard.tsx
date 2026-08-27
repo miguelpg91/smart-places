@@ -1,9 +1,25 @@
 import { FaSearch } from "react-icons/fa";
 import { FaMapMarkerAlt } from "react-icons/fa"
 
+type Place = {
+    title: string
+    description: string
+    province: string
+    city: string
+    type: string
+    image_url?: string
+    pricePerNight: number
+    quiet: boolean
+    hasWater: boolean
+    nearLake: boolean
+    tags: string[]
+}
 
+type Props = {
+    place: Place
+}
 
-export default function PlaceCard({ place }) {
+export default function PlaceCard({ place }: Props) {
 
     return (
         <>

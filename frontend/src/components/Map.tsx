@@ -1,9 +1,45 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-///LEAFLET el script que permite inreactuar con un mapa (titlelayer) ???? 
+import L from "leaflet";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
-export default function Map({ places }) {
+
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: markerIcon2x,
+    iconUrl: markerIcon,
+    shadowUrl: markerShadow
+});
+
+///Leaflet permite crear e interactuar con mapas.
+
+type Place = {
+    id: number
+    title: string
+    description: string
+    province: string
+    city: string
+    type: string
+    image_url?: string
+    pricePerNight: number
+    quiet: boolean
+    hasWater: boolean
+    nearLake: boolean
+    latitude: number
+    longitude: number
+    tags: string[]
+}
+
+type Props = {
+    places: Place[]
+}
+
+
+export default function Map({ places }: Props) {
     return (
         <div className="mapContainer">
             <MapContainer
@@ -44,4 +80,4 @@ export default function Map({ places }) {
 ///<Marker position={[40.4168, -3.7038]} />   Madrid
 
 
-///PopUp => marcadores clickables
+///PopUp => ventana con información que aparece al pulsar el marcador

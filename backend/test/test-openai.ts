@@ -5,7 +5,7 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
-async function test() {
+async function test(): Promise<void> {
     const response = await openai.responses.create({
         model: "gpt-5.4-mini",
         input: `

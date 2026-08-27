@@ -8,13 +8,14 @@ export default function Navbar() {
     return (
 
         <header className='flex justify-between items-center py-12'>
+            <Link to="/">
+                <img
+                    src={logo}
+                    alt="Smart Places"
+                    className='h-8'
 
-            <img
-                src={logo}
-                alt="Smart Places"
-                className='h-8'
-            />
-
+                />
+            </Link>
 
             <nav className='flex gap-6'>
                 <Link to='/'>Home</Link>
