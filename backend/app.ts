@@ -8,7 +8,9 @@ const app = express()
 import placesRoutes from './src/routes/places.js'
 
 
-app.use(cors())     ///???
+app.use(cors({
+    origin: "https://smart-places-frontend.onrender.com"
+}))
 
 app.use(express.json())
 
