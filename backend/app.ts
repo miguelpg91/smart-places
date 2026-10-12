@@ -16,7 +16,7 @@ app.use(cors({
 
 const aiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 20,
+    max: 5,
     message: 'Demasiadas peticiones. Inténtalo más tarde.'
 })
 

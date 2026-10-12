@@ -74,29 +74,12 @@ export async function searchPlaces(
             index++
         }
 
-        if (filters.hasToilet) {
-            conditions.push(`has_toilet = $${index}`)
-            values.push(true)
-            index++
-        }
-
-        if (filters.hasShower) {
-            conditions.push(`has_shower = $${index}`)
-            values.push(true)
-            index++
-        }
-
         if (filters.quiet) {
             conditions.push(`quiet = $${index}`)
             values.push(true)
             index++
         }
 
-        if (filters.nearBeach) {
-            conditions.push(`near_beach = $${index}`)
-            values.push(true)
-            index++
-        }
 
         if (filters.nearLake) {
             conditions.push(`near_lake = $${index}`)
@@ -104,23 +87,6 @@ export async function searchPlaces(
             index++
         }
 
-        if (filters.nearRiver) {
-            conditions.push(`near_river = $${index}`)
-            values.push(true)
-            index++
-        }
-
-        if (filters.nearMountain) {
-            conditions.push(`near_mountain = $${index}`)
-            values.push(true)
-            index++
-        }
-
-        if (filters.forest) {
-            conditions.push(`forest = $${index}`)
-            values.push(true)
-            index++
-        }
 
 
         //@> buscar dentro de un array
