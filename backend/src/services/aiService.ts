@@ -1,26 +1,46 @@
 import OpenAI from "openai"
 
 
+import { filtersSchema } from "../schemas/filtersSchema.js";
+
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
+type PlaceType =
+    | "Camping"
+    | "Parking"
+    | "Área Camper"
+    | "Área de autocaravanas"
+    | "Lugar libre"
+
 type Filters = {
     province?: string
     city?: string
-    type?: string
-    quiet?: boolean
+    type?: PlaceType
+
     hasWater?: boolean
+    hasToilet?: boolean
+    hasShower?: boolean
+    quiet?: boolean
+
+    nearBeach?: boolean
     nearLake?: boolean
+    nearRiver?: boolean
+    nearMountain?: boolean
+    forest?: boolean
+
     tags?: string[]
+
     priceMax?: number
+
+    region?: "norte" | "sur" | "este" | "oeste"
 }
 
 
 export default async function aiService(query: string): Promise<Filters> {
 
-    try {
-        const prompt = `
+    const prompt = `
 Eres un asistente que convierte búsquedas de usuarios en filtros JSON.
 
 Devuelve únicamente un JSON válido.
@@ -113,23 +133,32 @@ Usuario:
   "tags": ["mascotas", "senderismo"]
 }
 
+Si el usuario menciona una región de España, devuelve el campo region con uno de estos valores: "norte", "sur", "este" u "oeste". Si no menciona ninguna región, omite el campo region.
+
+Ejemplos:
+
+"Busca lugares tranquilos en el norte" → {"region":"norte"}
+
+"Busca lugares para camper en el sur" → {"region":"sur"}
+
 Usuario:
 
 "${query}"
 `
 
-        const response = await openai.responses.create({
-            model: "gpt-5.4-mini",
-            input: prompt
-        })
+    const response = await openai.responses.create({
+        model: "gpt-5.4-mini",
+        input: prompt
+    })
 
-        const filters: Filters = JSON.parse(response.output_text)    ///Convierte la respuesta de la IA de texto a objeto 
+    const filters = filtersSchema.parse(
+        JSON.parse(response.output_text)                                     ///Convierte la respuesta de la IA de texto a objeto 
+    )
 
-        return filters          //// Devuelve ese objeto al controller
 
-    } catch (error) {
-        throw error
-    }
+
+    return filters          //// Devuelve ese objeto al controller
+
 }
 
 

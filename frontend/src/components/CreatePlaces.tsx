@@ -198,6 +198,12 @@ export default function createPlaces() {
                         <option value="lugar-libre">
                             Lugar libre
                         </option>
+                        <option value="parking">
+                            Parking
+                        </option>
+                        <option value="area-camper">
+                            Área Camper
+                        </option>
                     </select>
                 </div>
 

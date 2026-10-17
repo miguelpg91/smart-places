@@ -15,6 +15,12 @@ export const filtersSchema = z.object({
     quiet: z.boolean().optional(),
     hasWater: z.boolean().optional(),
     nearLake: z.boolean().optional(),
+    hasToilet: z.boolean().optional(),
+    hasShower: z.boolean().optional(),
+    nearBeach: z.boolean().optional(),
+    nearRiver: z.boolean().optional(),
+    nearMountain: z.boolean().optional(),
+    forest: z.boolean().optional(),
 
     tags: z.array(z.enum([
         "lago",
@@ -31,23 +37,13 @@ export const filtersSchema = z.object({
         "barbacoa"
     ])).optional(),
     priceMax: z.number().positive().optional(),
-
+    region: z.enum([
+        "norte",
+        "sur",
+        "este",
+        "oeste"
+    ]).optional()
 })
 
 
 
-/*
-
-
-Sustituye esta línea:
-
-    const filters: Filters = JSON.parse(response.output_text)
-
-por:
-
-    const parsed: unknown = JSON.parse(response.output_text)
-    const filters = filtersSchema.parse(parsed)
-
-    return filters
-
-*/

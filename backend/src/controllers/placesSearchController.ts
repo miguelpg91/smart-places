@@ -4,10 +4,18 @@ import aiService from "../services/aiService.js"
 
 import summaryPrompt from "../services/summaryPrompt.js"
 
+type PlaceType =
+    | "Camping"
+    | "Parking"
+    | "Área Camper"
+    | "Área de autocaravanas"
+    | "Lugar libre"
+
+
 type SearchFilters = {
     province?: string
     city?: string
-    type?: string
+    type?: PlaceType
 
     hasWater?: boolean
     hasToilet?: boolean
@@ -23,10 +31,16 @@ type SearchFilters = {
     tags?: string[]
 
     priceMax?: number
+
+    region?: "norte" | "sur" | "este" | "oeste"
 }
 
 type SearchRequestDTO = {
     query: string
+}
+
+const regions = {
+    norte: ["Asturias", "Galicia", "Cantabria"]
 }
 
 
@@ -41,10 +55,9 @@ export async function searchPlaces(
 
         const filters: SearchFilters = await aiService(query)      ///Envia el texto a la IA
 
-        console.log(filters);
 
         let conditions: string[] = []                         ///Guardará las condiciones SQL que entran en juego en la consulta
-        let values: (string | number | boolean)[] = []                             ///Guardará el valor de esas condiciones
+        let values: (string | number | boolean | string[])[] = []                             ///Guardará el valor de esas condiciones
 
         let index = 1                               ///Si aparece la primera condición, usará $1
 
@@ -117,6 +130,23 @@ export async function searchPlaces(
             values.push(filters.priceMax)
             index++
         }
+
+        /// REGIONES
+
+        if (filters.region && filters.region in regions) {
+            // Si hay una región y existe en el objeto regions...
+            conditions.push(`LOWER(province) = ANY($${index})`)
+            // Añade a conditions una condición SQL para buscar cualquier provincia de esa región.
+
+            values.push(
+                regions[filters.region as keyof typeof regions].map(p => p.toLowerCase()))
+            // Añade a values la lista de provincias correspondiente a esa región.
+
+            index++
+            // Aumenta el contador para el siguiente marcador SQL.
+        }
+
+
 
         ///SI NO HAY FILTROS
 
