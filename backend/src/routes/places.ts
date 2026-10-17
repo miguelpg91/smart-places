@@ -75,7 +75,7 @@ router.post('/',
         if (req.file) {
 
             // 3. Enviamos la imagen de Multer a Cloudinary
-            const result = await new Promise<any>((resolve, reject) => {
+            const result = await new Promise<any>((resolve, reject) => {        ///???
 
                 const stream = cloudinary.uploader.upload_stream(
                     {

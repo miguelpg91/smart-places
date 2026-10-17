@@ -6,10 +6,12 @@ type Place = {
     province: string
     city: string
     type: string
-    pricePerNight: number
-    quiet: boolean
-    hasWater: boolean
-    nearLake: boolean
+    pricePerNight: number,
+    quiet: boolean,
+    hasWater: boolean,
+    nearLake: boolean,
+    latitude: number,
+    longitude: number,
     tags: string[]
 }
 
@@ -43,14 +45,14 @@ export default function TagsSelector({ form, setForm }: Props) {
 
     return (
         <>
-            <label>
+            <label className="flex items-center gap-2">
                 <input type="checkbox"
                     value="mirador"
                     onChange={handleTags} />
                 Mirador
             </label>
 
-            <label>
+            <label className="flex items-center gap-2">
                 <input
                     type="checkbox"
                     value="senderismo"
@@ -58,7 +60,7 @@ export default function TagsSelector({ form, setForm }: Props) {
                 Senderismo
             </label>
 
-            <label>
+            <label className="flex items-center gap-2">
                 <input
                     type="checkbox"
                     value="pesca"
@@ -66,7 +68,7 @@ export default function TagsSelector({ form, setForm }: Props) {
                 Pesca
             </label>
 
-            <label>
+            <label className="flex items-center gap-2">
                 <input
                     type="checkbox"
                     value="barbacoa"
@@ -74,7 +76,7 @@ export default function TagsSelector({ form, setForm }: Props) {
                 Barbacoa
             </label>
 
-            <label>
+            <label className="flex items-center gap-2">
                 <input
                     type="checkbox"
                     value="picnic"
@@ -82,7 +84,7 @@ export default function TagsSelector({ form, setForm }: Props) {
                 Picnic
             </label>
 
-            <label>
+            <label className="flex items-center gap-2">
                 <input
                     type="checkbox"
                     value="vistas"
@@ -90,7 +92,7 @@ export default function TagsSelector({ form, setForm }: Props) {
                 Vistas
             </label>
 
-            <label>
+            <label className="flex items-center gap-2">
                 <input
                     type="checkbox"
                     value="atardecer"
@@ -98,7 +100,7 @@ export default function TagsSelector({ form, setForm }: Props) {
                 Atardecer
             </label>
 
-            <label>
+            <label className="flex items-center gap-2">
                 <input
                     type="checkbox"
                     value="amanecer"
@@ -106,7 +108,7 @@ export default function TagsSelector({ form, setForm }: Props) {
                 Amanecer
             </label>
 
-            <label>
+            <label className="flex items-center gap-2">
                 <input
                     type="checkbox"
                     value="baño"
@@ -114,12 +116,22 @@ export default function TagsSelector({ form, setForm }: Props) {
                 Baño
             </label>
 
-            <label>
+            <label className="flex items-center gap-2">
                 <input
                     type="checkbox"
                     value="mascotas"
                     onChange={handleTags} />
                 Mascotas
+            </label>
+
+            <label className="flex items-center gap-2">
+                <input type="checkbox" value="lago" onChange={handleTags} />
+                Lago
+            </label>
+
+            <label className="flex items-center gap-2">
+                <input type="checkbox" value="montaña" onChange={handleTags} />
+                Montaña
             </label>
         </>
 

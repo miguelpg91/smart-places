@@ -11,19 +11,22 @@ const app = express()
 
 
 app.use(cors({
-    origin: "https://smart-places-frontend.onrender.com"
+    origin: [
+        "https://smart-places-frontend.onrender.com",
+        "http://localhost:5173"
+    ]
 }))
 
 const aiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 20,
+    max: 5,
     message: 'Demasiadas peticiones. Inténtalo más tarde.'
 })
 
 
 app.use(express.json())
 
-app.use('/places/search', aiLimiter)
+app.use('/places/search', aiLimiter)        ///aplica ell imitador al endpoint /search
 
 app.use('/places', placesRoutes)
 
