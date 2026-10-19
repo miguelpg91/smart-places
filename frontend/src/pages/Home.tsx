@@ -79,6 +79,10 @@ export default function Home() {
 
             <div className="border-2 border-gray-300 rounded-xl p-6">
 
+                <h1>Descubre lugares únicos para tu próxima aventura</h1>
+
+                <p>Encuentra áreas de pernocta, campings y lugares especiales para camper y autocaravana. Con filtros, mapas y la ayuda de la IA para encontrar exactamente lo que buscas</p>
+
                 <p className="mb-4 font-bold 4 text-xl text-[#7a7a7a]">Describe lo que estás buscando...</p>
 
                 <form className="flex gap-3" onSubmit={handleSubmit}>
