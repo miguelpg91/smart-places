@@ -44,7 +44,7 @@ export default function TagsSelector({ form, setForm }: Props) {
 
 
     return (
-        <>
+        <div className="grid grid-cols-3 gap-4">
             <label className="flex items-center gap-2">
                 <input type="checkbox"
                     value="mirador"
@@ -133,7 +133,7 @@ export default function TagsSelector({ form, setForm }: Props) {
                 <input type="checkbox" value="montaña" onChange={handleTags} />
                 Montaña
             </label>
-        </>
+        </div>
 
     )
 }

@@ -5,7 +5,7 @@ import { searchPlaces } from "../services/api.js"
 import PlaceCard from "../components/PlaceCard.js";
 import Map from "../components/Map.js";
 
-
+import HomeHero from "../components/HomeHero.js";
 
 type Place = {
     id: number
@@ -77,27 +77,14 @@ export default function Home() {
     return (
         <div>
 
-            <div className="border-2 border-gray-300 rounded-xl p-6">
+            <div>
 
-                <p className="mb-4 font-bold 4 text-xl text-[#7a7a7a]">Describe lo que estás buscando...</p>
-
-                <form className="flex gap-3" onSubmit={handleSubmit}>
-
-                    <input
-                        className="flex-1 border-2 border-gray-300 rounded-xl p-3"
-                        value={search}
-                        placeholder="Ask to the AI"
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="bg-[#69b14e] rounded-2xl px-6 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
-                    >
-                        {loading ? "Buscando..." : "Buscar con la IA"}
-                    </button>
-                </form>
+                <HomeHero
+                    search={search}
+                    setSearch={setSearch}
+                    loading={loading}
+                    handleSubmit={handleSubmit}
+                />
 
                 {error && (
                     <p className="mt-4 text-red-600" role="alert">
@@ -107,7 +94,7 @@ export default function Home() {
             </div>
 
             {summary && (
-                <div className="p-8 mt-8 bg-gree rounded-xl font-medium text-xl bg-[#69b14e]">
+                <div className="p-8 mt-8 bg-gree rounded-xl font-medium text-xl bg-[#1E7A4B]">
 
                     {summary}
                 </div>

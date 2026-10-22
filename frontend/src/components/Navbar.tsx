@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import logo from '../assets/logo.png'
+import logo from '../assets/logo-2.png'
 
 export default function Navbar() {
 
@@ -17,7 +17,7 @@ export default function Navbar() {
                 />
             </Link>
 
-            <nav className='flex gap-6'>
+            <nav className=' font-semibold flex gap-6'>
                 <Link to='/'>Home</Link>
                 <Link to='/create'>Añadir lugar</Link>
 

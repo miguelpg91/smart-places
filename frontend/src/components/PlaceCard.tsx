@@ -24,12 +24,12 @@ export default function PlaceCard({ place }: Props) {
     return (
         <>
 
-            <div className="border-2 border-gray-200 rounded-2xl">
+            <div className="border-2 border-gray-200 rounded-2xl bg-gray-100">
 
                 <img
                     src={place.image_url}
                     alt={place.title}
-                    className="object-cover rounded-t-xl"
+                    className="h-52 w-full rounded-t-xl object-cover "
                 />
 
                 <div className="p-5 space-y-4">

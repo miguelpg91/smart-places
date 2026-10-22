@@ -3,6 +3,7 @@ import { useState } from "react"
 import { createPlace } from "../services/api.js"
 import TagsSelector from "./TagsSelector.js"
 
+import Navbar from "./Navbar.js"
 
 type Place = {
     title: string
@@ -123,163 +124,175 @@ export default function createPlaces() {
 
 
     return (
-
-        <div className="createForm">
-            <form
-                onSubmit={handleSubmit}
-                className="bg-white rounded-xl shadow-md p-8 space-y-5"
+        <div>
+            {/* Cabecera con imagen y degradado */}
+            <div
+                className="relative bg-cover bg-no-repeat bg-top"
+                style={{
+                    backgroundImage: "url('/images/background-image-2.png')",
+                }}
             >
-                <input
-                    name="title"
-                    value={form.title}
-                    placeholder="Título"
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <input
-                    name="description"
-                    value={form.description}
-                    placeholder="Descripción"
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <input
-                    name="province"
-                    value={form.province}
-                    placeholder="Provincia"
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <input
-                    name="city"
-                    value={form.city}
-                    placeholder="Ciudad"
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <input
-                    name="latitude"
-                    value={form.latitude}
-                    placeholder="Latitud"
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <input
-                    name="longitude"
-                    value={form.longitude}
-                    placeholder="Longitud"
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/50 to-transparent" />
 
-                <div className="flex flex-col gap-1">
-                    <label className="font-medium">
-                        Tipo:
-                    </label>
+                <div className="relative mx-auto max-w-6xl px-4 text-white">
+                    <div className="relative mx-auto max-w-6xl px-6 pb-16 text-white">
+                        <Navbar />
 
-                    <select
-                        name="type"
-                        value={form.type}
-                        onChange={handleChange}
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2"
-                    >
-                        <option value="">
-                            Selecciona un tipo
-                        </option>
+                        <div className="px-8">
+                            <h1 className="text-4xl font-bold">
+                                Añade un nuevo lugar
+                            </h1>
 
-                        <option value="camping">
-                            Camping
-                        </option>
-
-                        <option value="area-autocaravanas">
-                            Área de autocaravanas
-                        </option>
-
-                        <option value="lugar-libre">
-                            Lugar libre
-                        </option>
-                        <option value="parking">
-                            Parking
-                        </option>
-                        <option value="area-camper">
-                            Área Camper
-                        </option>
-                    </select>
+                            <p className="mt-4 mb-6 text-lg leading-relaxed">
+                                Crea un lugar y ayuda a la comunidad a descubrir nuevos rincones que visitar.
+                            </p>
+                        </div>
+                    </div>
                 </div>
+            </div>
 
-                <div className="flex flex-col gap-1">
-                    <label className="font-medium">
-                        Precio por noche:
-                    </label>
+
+            <div className="mx-auto max-w-4xl px-4 py-10">
+                <form
+                    onSubmit={handleSubmit}
+                    className="space-y-5 rounded-xl bg-white p-8 shadow-md"
+                >
+                    <input
+                        name="title"
+                        value={form.title}
+                        placeholder="Título"
+                        onChange={handleChange}
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
 
                     <input
-                        type="number"
-                        name="pricePerNight"
-                        value={form.pricePerNight}
-                        placeholder="0"
+                        name="description"
+                        value={form.description}
+                        placeholder="Descripción"
                         onChange={handleChange}
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2"
-                    />
-                </div>
-
-                <input
-                    type="file"
-                    accept="image/*"    /// Solo permite seleccionar archivos de imagen
-                    onChange={(e) => {
-                        const file = e.target.files?.[0]
-
-                        if (file) {
-                            setImage(file)
-                        }
-                    }}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2"
-                />
-
-                <div className="grid grid-cols-3 gap-4">
-
-                    <label className="flex items-center gap-2">
-                        <input
-                            name="quiet"
-                            type="checkbox"
-                            checked={form.quiet}
-                            onChange={handleChange}
-                        />
-                        Quiet
-                    </label>
-
-                    <label className="flex items-center gap-2">
-                        <input
-                            name="hasWater"
-                            type="checkbox"
-                            checked={form.hasWater}
-                            onChange={handleChange}
-                        />
-                        Has water
-                    </label>
-                    <label className="flex items-center gap-2">
-                        <input
-                            name="nearLake"
-                            type="checkbox"
-                            checked={form.nearLake}
-                            onChange={handleChange}
-                        />
-                        Near lake
-                    </label>
-                    <TagsSelector
-                        form={form}
-                        setForm={setForm}
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
 
-                </div>
+                    <input
+                        name="province"
+                        value={form.province}
+                        placeholder="Provincia"
+                        onChange={handleChange}
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
 
-                <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition">
-                    Create Place
-                </button>
-            </form>
+                    <input
+                        name="city"
+                        value={form.city}
+                        placeholder="Ciudad"
+                        onChange={handleChange}
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
 
+                    <input
+                        name="latitude"
+                        value={form.latitude}
+                        placeholder="Latitud"
+                        onChange={handleChange}
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+
+                    <input
+                        name="longitude"
+                        value={form.longitude}
+                        placeholder="Longitud"
+                        onChange={handleChange}
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+
+                    <div className="flex flex-col gap-1">
+                        <label className="font-medium">Tipo:</label>
+
+                        <select
+                            name="type"
+                            value={form.type}
+                            onChange={handleChange}
+                            className="w-full rounded-lg border border-gray-300 px-4 py-2"
+                        >
+                            <option value="">Selecciona un tipo</option>
+                            <option value="camping">Camping</option>
+                            <option value="area-autocaravanas">Área de autocaravanas</option>
+                            <option value="lugar-libre">Lugar libre</option>
+                            <option value="parking">Parking</option>
+                            <option value="area-camper">Área Camper</option>
+                        </select>
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                        <label className="font-medium">Precio por noche:</label>
+
+                        <input
+                            type="number"
+                            name="pricePerNight"
+                            value={form.pricePerNight}
+                            placeholder="0€"
+                            onChange={handleChange}
+                            className="w-full rounded-lg border border-gray-300 px-4 py-2"
+                        />
+                    </div>
+
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                            const file = e.target.files?.[0];
+
+                            if (file) {
+                                setImage(file);
+                            }
+                        }}
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2"
+                    />
+
+                    <div className="grid grid-cols-3 gap-4">
+                        <label className="flex items-center gap-2">
+                            <input
+                                name="quiet"
+                                type="checkbox"
+                                checked={form.quiet}
+                                onChange={handleChange}
+                            />
+                            Silencioso
+                        </label>
+
+                        <label className="flex items-center gap-2">
+                            <input
+                                name="hasWater"
+                                type="checkbox"
+                                checked={form.hasWater}
+                                onChange={handleChange}
+                            />
+                            Tiene agua
+                        </label>
+
+                        <label className="flex items-center gap-2">
+                            <input
+                                name="nearLake"
+                                type="checkbox"
+                                checked={form.nearLake}
+                                onChange={handleChange}
+                            />
+                            Cerca de lagos
+                        </label>
+                    </div>
+
+                    <TagsSelector form={form} setForm={setForm} />
+
+                    <button
+                        type="submit"
+                        className="w-full rounded-lg bg-[#1E7A4B] py-3 font-medium text-white transition hover:bg-[#17613B]"
+                    >
+                        Crear lugar
+                    </button>
+                </form>
+            </div>
         </div>
-
-    )
+    );
 
 
 }

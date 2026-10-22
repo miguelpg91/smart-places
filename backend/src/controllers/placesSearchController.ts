@@ -116,12 +116,16 @@ export async function searchPlaces(
 
         if (filters.tags) {
             filters.tags.forEach(tag => {
-                conditions.push(`tags @> ARRAY[$${index}]`)
+                conditions.push(`EXISTS (
+            SELECT 1
+            FROM unnest(tags) AS tag
+            WHERE LOWER(tag) = LOWER($${index})
+        )`)
+
                 values.push(tag)
-                index++;
+                index++
             })
         }
-
 
         ///Filter (no está en la db)
 
