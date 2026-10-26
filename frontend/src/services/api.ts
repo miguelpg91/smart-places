@@ -55,6 +55,16 @@ export const createPlace = async (formData: FormData) => {
     return response.json()
 }
 
+export const getPlaces = async () => {
+    const res = await fetch(`${API_URL}/places`)
+
+    if (!res.ok) {
+        throw new Error("No se pudieron obtener los lugares")
+    }
+
+    return res.json()
+}
+
 
 /*
 

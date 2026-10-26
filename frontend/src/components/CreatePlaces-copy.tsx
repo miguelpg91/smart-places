@@ -312,7 +312,7 @@ export default function createPlaces() {
                     <div className="space-y-6">
                         <section className="rounded-2xl bg-white p-6 shadow-sm">
                             <h2 className="mb-4 text-lg font-semibold text-gray-900">
-                                Fotografía
+                                Imagen
                             </h2>
 
                             <input
@@ -357,7 +357,9 @@ export default function createPlaces() {
                                 </h3>
 
                                 <p className="text-sm text-gray-500">
-                                    {[form.city, form.province].filter(Boolean).join(", ") ||
+                                    {[form.city, form.province]
+                                        .filter(Boolean)    ///convierte cada valor en true o false segun haya valor o no. y filtra los que sean true
+                                        .join(", ") ||        /// join(", ") convierte el array en un único texto legible: "Alicante, Valencia" ,sino seria un array
                                         "Ciudad y provincia"}
                                 </p>
 

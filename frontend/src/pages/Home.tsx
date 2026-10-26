@@ -7,6 +7,8 @@ import Map from "../components/Map.js";
 
 import HomeHero from "../components/HomeHero.js";
 
+import FilterPlaces from "../components/FilterPlaces.js";
+
 type Place = {
     id: number
     title: string
@@ -44,6 +46,8 @@ export default function Home() {
     const [error, setError] = useState<string>("")
 
 
+
+
     const handleSubmit = async (
         event: React.FormEvent<HTMLFormElement>
     ): Promise<void> => {      ///event solo sirve para hacer: event.preventDefault()
@@ -74,6 +78,8 @@ export default function Home() {
     }
 
 
+
+
     return (
         <div>
 
@@ -93,12 +99,15 @@ export default function Home() {
                 )}
             </div>
 
+
             {summary && (
                 <div className="p-8 mt-8 bg-gree rounded-xl font-medium text-xl bg-[#1E7A4B]">
 
                     {summary}
                 </div>
             )}
+
+            <FilterPlaces />
 
 
             <div className="mt-10 rounded-xl overflow-hidden">

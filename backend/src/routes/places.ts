@@ -250,7 +250,7 @@ router.delete('/:id', async (
 
 
 
-router.post('/search', searchPlaces)
+router.post('/search', searchPlaces)        ///Ruta IA
 
 
 

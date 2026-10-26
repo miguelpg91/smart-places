@@ -26,7 +26,7 @@ const aiLimiter = rateLimit({
 
 app.use(express.json())
 
-app.use('/places/search', aiLimiter)        ///aplica ell imitador al endpoint /search
+app.use('/places/search', aiLimiter)        ///aplica el limitador al endpoint /search
 
 app.use('/places', placesRoutes)
 

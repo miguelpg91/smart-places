@@ -1,4 +1,4 @@
-import CreatePlaces from "../components/CreatePlaces.jsx";
+import CreatePlaces from "../components/CreatePlaces-copy.jsx";
 
 export default function Create() {
 

@@ -1,4 +1,4 @@
-import { FaSearch } from "react-icons/fa";
+
 import { FaMapMarkerAlt } from "react-icons/fa"
 
 type Place = {

@@ -43,7 +43,6 @@ export default function createPlaces() {
     ) => {
 
 
-        console.log("CAMBIO:", e.target.name, e.target.value)
 
         const { name, value, } = e.target
 
@@ -157,50 +156,56 @@ export default function createPlaces() {
                     onSubmit={handleSubmit}
                     className="space-y-5 rounded-xl bg-white p-8 shadow-md"
                 >
+                    <label className="font-medium">Titulo:</label>
                     <input
                         name="title"
                         value={form.title}
-                        placeholder="Título"
+                        placeholder="Pico de Santa Ana"
                         onChange={handleChange}
                         className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
 
+                    <label className="font-medium">Descripción:</label>
                     <input
                         name="description"
                         value={form.description}
-                        placeholder="Descripción"
+                        placeholder="Describe tu lugar"
                         onChange={handleChange}
                         className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
 
+                    <label className="font-medium">Provincia:</label>
                     <input
                         name="province"
                         value={form.province}
-                        placeholder="Provincia"
+                        placeholder="Asturias"
                         onChange={handleChange}
                         className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
 
+                    <label className="font-medium">Ciudad:</label>
                     <input
                         name="city"
                         value={form.city}
-                        placeholder="Ciudad"
+                        placeholder="Asturias"
                         onChange={handleChange}
                         className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
 
+                    <label className="font-medium">Latitud:</label>
                     <input
                         name="latitude"
                         value={form.latitude}
-                        placeholder="Latitud"
+                        placeholder="43.297200"
                         onChange={handleChange}
                         className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
 
+                    <label className="font-medium">Longitud:</label>
                     <input
                         name="longitude"
                         value={form.longitude}
-                        placeholder="Longitud"
+                        placeholder="-5.684000"
                         onChange={handleChange}
                         className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
@@ -215,11 +220,11 @@ export default function createPlaces() {
                             className="w-full rounded-lg border border-gray-300 px-4 py-2"
                         >
                             <option value="">Selecciona un tipo</option>
-                            <option value="camping">Camping</option>
-                            <option value="area-autocaravanas">Área de autocaravanas</option>
-                            <option value="lugar-libre">Lugar libre</option>
-                            <option value="parking">Parking</option>
-                            <option value="area-camper">Área Camper</option>
+                            <option value="Camping">Camping</option>
+                            <option value="Área de autocaravanas">Área de autocaravanas</option>
+                            <option value="Lugar libre">Lugar libre</option>
+                            <option value="Parking">Parking</option>
+                            <option value="Área Camper">Área Camper</option>
                         </select>
                     </div>
 
@@ -235,7 +240,7 @@ export default function createPlaces() {
                             className="w-full rounded-lg border border-gray-300 px-4 py-2"
                         />
                     </div>
-
+                    <label className="font-medium">Imagen:</label>
                     <input
                         type="file"
                         accept="image/*"
@@ -297,18 +302,3 @@ export default function createPlaces() {
 
 }
 
-
-/*
-
-      title,
-        description,
-        province,
-        city,
-        type,
-        pricePerNight,
-        quiet,
-        hasWater,
-        nearLake,
-        tags
-
-*/
