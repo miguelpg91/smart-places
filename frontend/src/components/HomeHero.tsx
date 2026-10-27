@@ -1,5 +1,8 @@
 import Navbar from "./Navbar.js"
 
+import { FaSearch } from "react-icons/fa";
+
+import { LuSparkles } from "react-icons/lu";
 
 interface HomeHeroProps {
     search: string
@@ -37,18 +40,23 @@ export default function HomeHero({ search, setSearch, handleSubmit, loading }: H
 
                         <form className="flex max-w-2xl gap-3" onSubmit={handleSubmit}>
 
-                            <input
-                                className=" bg-amber-50 flex-1 border-2 border-gray-300 rounded-xl p-3 text-gray-700 font-semibold"
-                                value={search}
-                                placeholder="Ask to the AI"
-                                onChange={(e) => setSearch(e.target.value)}
-                            />
+                            <div className="relative flex-1">
+                                <LuSparkles className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-semibold text-lg" />
+
+                                <input
+                                    className="w-full bg-amber-50 border-2 border-gray-300 rounded-xl py-3 pl-10 pr-3 text-gray-700 font-semibold"
+                                    value={search}
+                                    placeholder="Ask to the AI"
+                                    onChange={(e) => setSearch(e.target.value)}
+                                />
+                            </div>
 
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="bg-[#1E7A4B] rounded-2xl px-6 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
+                                className=" flex items-center gap-2 bg-[#1E7A4B] rounded-2xl px-6 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
                             >
+                                <FaSearch />
                                 {loading ? "Buscando..." : "Buscar con la IA"}
                             </button>
                         </form>

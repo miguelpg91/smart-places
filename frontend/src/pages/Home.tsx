@@ -5,6 +5,7 @@ import { searchPlaces } from "../services/api.js"
 import PlaceCard from "../components/PlaceCard.js";
 import Map from "../components/Map.js";
 
+
 import HomeHero from "../components/HomeHero.js";
 
 import FilterPlaces from "../components/FilterPlaces.js";
@@ -79,7 +80,6 @@ export default function Home() {
 
 
 
-
     return (
         <div>
 
@@ -110,12 +110,14 @@ export default function Home() {
             <FilterPlaces />
 
 
-            <div className="mt-10 rounded-xl overflow-hidden">
+            <div className="mt-2 rounded-xl overflow-hidden">
 
 
                 <Map places={response} />
 
-                <p className="mb-4 mt-8 font-bold 4 text-xl text-[#7a7a7a]">Lugares encontrados: {response.length}</p>
+                {response.length > 0 && (
+                    <p className="mb-4 mt-8 font-bold 4 text-xl text-[#7a7a7a]">Lugares encontrados: {response.length}</p>
+                )}
 
                 <div className="grid grid-cols-3 gap-12 mt-6 ">
 
